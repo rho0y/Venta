@@ -1,44 +1,54 @@
-#include "funciones.h"
-#include <string.h>
-#include <stdio.h>
+#include <stdio.h> #include <string.h> #include "funciones.h"
 
-int main() {
-    struct DatosLibroAnidado coleccion[MAX_LIBROS];
-    struct Comprador compradores[MAX_COMPRADORES];
-    struct Venta ventas[MAX_VENTAS];
-    int totalLibros = 0, totalCompradores = 0, totalVentas = 0;
-    int opcion;
-    char buffer[10];
+int main() { struct DatosLibroAnidado coleccion[MAX_LIBROS]; struct Venta ventas[MAX_VENTAS]; struct Comprador compradores[MAX_COMPRADORES]; int totalLibros = 0, totalVentas = 0, totalCompradores = 0; int opcion;
 
-    inicializarLibros(coleccion, &totalLibros);
+inicializarLibros(coleccion, &totalLibros);
 
-    do {
-        menu();
-        printf("Selecciona una opcion: ");
-        fgets(buffer, sizeof(buffer), stdin);
+do {
+    menu();
+    printf("Selecciona una opcion: ");
+    char entrada[10];
+    fgets(entrada, sizeof(entrada), stdin);
 
-        while (!esNumeroValido(buffer)) {
-            printf("Entrada invalida. Por favor ingresa un numero: ");
-            fgets(buffer, sizeof(buffer), stdin);
+    opcion = -1;
+    int valido = 1;
+    for (int i = 0; entrada[i] != '\0' && entrada[i] != '\n'; i++) {
+        if (entrada[i] < '0' || entrada[i] > '9') {
+            valido = 0;
+            break;
         }
+    }
+    if (valido) {
+        opcion = 0;
+        for (int i = 0; entrada[i] >= '0' && entrada[i] <= '9'; i++) {
+            opcion = opcion * 10 + (entrada[i] - '0');
+        }
+    }
 
-        opcion = atoi(buffer);
-
-        if (opcion == 1) {
+    switch (opcion) {
+        case 1:
             listaLibros(coleccion, totalLibros);
-        } else if (opcion == 2) {
-            venderLibro(coleccion, totalLibros, compradores, &totalCompradores, ventas, &totalVentas);
-        } else if (opcion == 3) {
+            break;
+        case 2:
+            venderLibro(coleccion, &totalLibros, ventas, &totalVentas, compradores, &totalCompradores);
+            break;
+        case 3:
             imprimirCompradores(compradores, totalCompradores);
-        } else if (opcion == 4) {
+            break;
+        case 4:
             imprimirVentas(ventas, totalVentas);
-        } else if (opcion == 5) {
-            printf("Gracias por usar el sistema\n");
-        } else {
-            printf("Opcion invalida\n");
-        }
+            break;
+        case 5:
+            printf("Gracias por usar el sistema de biblioteca. Hasta luego!\n");
+            break;
+        default:
+            printf("Opcion invalida. Por favor selecciona una opcion del menu.\n");
+            break;
+    }
 
-    } while (opcion != 5);
+} while (opcion != 5);
 
-    return 0;
+return 0;
+
 }
+
