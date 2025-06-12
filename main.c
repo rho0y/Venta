@@ -1,4 +1,6 @@
 #include "funciones.h"
+#include <string.h>
+#include <stdio.h>
 
 int main() {
     struct DatosLibroAnidado coleccion[MAX_LIBROS];
