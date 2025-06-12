@@ -1,6 +1,11 @@
 #include <stdio.h> #include <string.h> #include "funciones.h"
 
-int main() { struct DatosLibroAnidado coleccion[MAX_LIBROS]; struct Venta ventas[MAX_VENTAS]; struct Comprador compradores[MAX_COMPRADORES]; int totalLibros = 0, totalVentas = 0, totalCompradores = 0; int opcion;
+int main() { 
+    struct DatosLibroAnidado coleccion[MAX_LIBROS]; 
+    struct Venta ventas[MAX_VENTAS];
+    struct Comprador compradores[MAX_COMPRADORES];
+    int totalLibros = 0, totalVentas = 0, totalCompradores = 0; 
+    int opcion;
 
 inicializarLibros(coleccion, &totalLibros);
 
